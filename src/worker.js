@@ -19,7 +19,7 @@ export default {
 
 		const res = await request.json();
 
-		await sendMessage(res)
+		await sendMessage("hi")
 
 		return new Response('OK');
 	}
