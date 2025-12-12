@@ -13,13 +13,15 @@ async function sendMessage(chatId, text) {
 
 export default {
 	async fetch(request) {
-		// if (request.method !== 'POST') {
-		// 	return new Response('Not Found', { status: 404 });
-		// }
+		if (request.method !== 'POST') {
+			return new Response('Not Found', { status: 404 });
+		}
 
-		// const res = await request.json();
+		const { message, ...p } = await request.json();
+		const chatId = message?.chat?.id;
+		const text = message?.text;
 
-		await sendMessage("hi")
+		await sendMessage(chatId, JSON.stringify(p));
 
 		return new Response('OK');
 	}
