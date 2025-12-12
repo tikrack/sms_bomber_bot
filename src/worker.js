@@ -70,8 +70,8 @@ export default {
 ⚡ پارامتر اول = شماره
 ⚡ پارامتر دوم = تعداد دفعات حمله`,
 			);
-		}else {
-			await sendMessage(id, "حمله شروع شد")
+		} else {
+			await sendMessage(id, 'حمله شروع شد');
 		}
 
 		return new Response('OK');
