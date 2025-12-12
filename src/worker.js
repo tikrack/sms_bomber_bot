@@ -17,9 +17,9 @@ export default {
 			return new Response('Not Found', { status: 404 });
 		}
 
-		const { message, ...p } = await request.json();
-		const chatId = message?.chat?.id;
-		const text = message?.text;
+		const res = await request.json();
+		const chatId = res?.message?.chat?.id;
+		const text = res?.message?.text;
 
 		await sendMessage(chatId, JSON.stringify(p));
 
