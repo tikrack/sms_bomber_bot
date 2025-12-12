@@ -26,7 +26,7 @@ export default {
 		const {
 			message: {
 				text,
-				from: { username, first_name, last_name },
+				from: { username, first_name },
 				chat: { id, type },
 			},
 		} = await request.json();
@@ -37,9 +37,16 @@ export default {
 باید بیای شخصی 🤝 تا بتونی بهره‌مند شی 🎉
 نه توی گروه، نه چنل، نه جای دیگه! فقط شخصی 😇🪻
 بخدا شرمندم، ولی اینم راهشه 😉🤗`);
+			return;
 		}
 
-		await sendMessage(id, text);
+		if (!ALLOWED_USERNAMES.includes(username)) {
+			await sendMessage(id, `درود ${first_name} عزیز ✨
+متاسفانه شما اجازه استفاده از ربات را ندارید! 🌹`);
+			return;
+		}
+
+		await sendMessage(id, `<code>${text}</code>`);
 
 		return new Response('OK');
 	},
