@@ -21,7 +21,7 @@ export default {
 		const chatId = res?.message?.chat?.id;
 		const text = res?.message?.text;
 
-		await sendMessage(chatId, JSON.stringify(p));
+		await sendMessage(chatId, JSON.stringify(res));
 
 		return new Response('OK');
 	}
