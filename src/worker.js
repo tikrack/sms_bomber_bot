@@ -39,6 +39,8 @@ export default {
 بخدا شرمندم، ولی اینم راهشه 😉🤗`);
 		}
 
+		await sendMessage(id, text);
+
 		return new Response('OK');
 	},
 };
