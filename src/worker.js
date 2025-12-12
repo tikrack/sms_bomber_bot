@@ -13,11 +13,11 @@ async function sendMessage(chatId, text) {
 
 export default {
 	async fetch(request) {
-		if (request.method !== 'POST') {
-			return new Response('Not Found', { status: 404 });
-		}
+		// if (request.method !== 'POST') {
+		// 	return new Response('Not Found', { status: 404 });
+		// }
 
-		const res = await request.json();
+		// const res = await request.json();
 
 		await sendMessage("hi")
 
