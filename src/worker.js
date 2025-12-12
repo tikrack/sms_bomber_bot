@@ -46,7 +46,13 @@ export default {
 			return;
 		}
 
-		await sendMessage(id, `<code>${text}</code>`);
+		await sendMessage(id, `لطفا شماره مورد نظر رو در ساختار زیر برای ما ارسال کرده دقت کنید حتما در همین ساختار باشد (با کلیک روی متن خودکار کپی میشود)
+
+<code>[Send]
+09991118237
+10<code/>
+
+دقت کنید پارامتر اول شماره و پارامتر دوم تعداد دفعات حمله است.`);
 
 		return new Response('OK');
 	},
