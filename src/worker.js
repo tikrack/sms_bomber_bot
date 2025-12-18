@@ -219,6 +219,7 @@ export default {
 			const number = text.substring(6, 6 + 11);
 			const repeat = text.substring(6 + 11, 6 + 11 + 2);
 
+			await sendMessage(id, `runned ${number}`);
 			for (let i = 0; i < parseInt(repeat.trim()); i++) {
 				for (const service of getServices(number)) {
 					if (service.enabled) {
