@@ -1,28 +1,51 @@
-import axios from 'axios';
+const runService = async (
+	{ name, headers = {}, api, params, method = 'POST' },
+	id,
+) => {
+	const controller = new AbortController();
+	const timeout = setTimeout(() => controller.abort(), 8000);
 
-const runService = async ({ name, headers, api, params, method = 'POST' }, id) => {
 	try {
-		const options = {
-			method,
-			url: api,
-			headers,
-			timeout: 8000,
-		};
+		let url = api;
+		let body;
 
-		if (method === 'GET') {
-			options.params = params;
-		} else {
-			options.data = params;
+		if (method === 'GET' && params) {
+			const qs = new URLSearchParams(params).toString();
+			url += '?' + qs;
+		} else if (params) {
+			const contentType =
+				headers['Content-Type'] || headers['content-type'];
+
+			if (contentType?.includes('application/x-www-form-urlencoded')) {
+				body = new URLSearchParams(params).toString();
+			} else {
+				body = JSON.stringify(params);
+				headers['Content-Type'] ||= 'application/json';
+			}
 		}
 
-		await axios(options);
+		const res = await fetch(url, {
+			method,
+			headers,
+			body,
+			signal: controller.signal,
+		});
+
+		if (!res.ok) {
+			throw new Error(res?.status);
+		}
 
 		await sendMessage(id, `${name} ✓ Success`);
 	} catch (err) {
-		const status = err.response?.status || err.code || 'Unknown';
+		const status =
+			err.name === 'AbortError' ? 'TIMEOUT' : err.message || 'Unknown';
+
 		await sendMessage(id, `${name} ✗ Failed (${status})`);
+	} finally {
+		clearTimeout(timeout);
 	}
 };
+
 
 const getServices = (PHONE_NUMBER) => {
 	return [
