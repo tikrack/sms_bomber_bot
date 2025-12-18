@@ -72,8 +72,9 @@ export default {
 			);
 		} else {
 
-			const a = text.substring(0, 6);
-			await sendMessage(id, a);
+			const command = text.substring(0, 6);
+			const number = text.substring(6, 12);
+			await sendMessage(id, number);
 		}
 
 		return new Response('OK');
