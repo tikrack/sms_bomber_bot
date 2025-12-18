@@ -71,7 +71,9 @@ export default {
 ⚡ پارامتر دوم = تعداد دفعات حمله`,
 			);
 		} else {
-			await sendMessage(id, 'حمله شروع شدددد');
+
+			const a = text.substring(0, 6);
+			await sendMessage(id, a);
 		}
 
 		return new Response('OK');
