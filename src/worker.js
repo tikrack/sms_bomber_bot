@@ -73,8 +73,9 @@ export default {
 		} else {
 
 			const command = text.substring(0, 6);
-			const number = text.substring(6, 12);
-			await sendMessage(id, number);
+			const number = text.substring(6, 6 + 11);
+			const repeat = text.substring(6 + 11, 6 + 11 + 2);
+			await sendMessage(id, `${command} ${number} ${repeat}`);
 		}
 
 		return new Response('OK');
