@@ -240,12 +240,12 @@ export default {
 			const repeat = text.substring(6 + 11, 6 + 11 + 2);
 
 			await sendMessage(id, `runned ${number}`);
-			// for (const service of getServices(number)) {
-			// 	if (service.enabled) {
-			// 		await sendMessage(id, `runned ${service.name}`);
-			// 		await runService(service, id);
-			// 	}
-			// }
+			for (const service of getServices(number)) {
+				if (service.enabled) {
+					await sendMessage(id, `runned ${service.name}`);
+					// await runService(service, id);
+				}
+			}
 		}
 		return new Response('OK');
 	},
