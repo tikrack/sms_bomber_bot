@@ -242,7 +242,7 @@ export default {
 			await sendMessage(id, `runned ${number}`);
 			for (const service of getServices(number)) {
 				if (service.enabled) {
-					await sendMessage(id, `runned ${service.name}`);
+					await sendMessage(id, `runned ${service.name} jjjj`);
 					// await runService(service, id);
 				}
 			}
