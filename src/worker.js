@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const runService = async ({ name, headers, api, params, method = "POST" }, id) => {
+const runService = async ({ name, headers, api, params, method = 'POST' }, id) => {
 	try {
 		const options = {
 			method,
@@ -9,7 +9,7 @@ const runService = async ({ name, headers, api, params, method = "POST" }, id) =
 			timeout: 8000,
 		};
 
-		if (method === "GET") {
+		if (method === 'GET') {
 			options.params = params;
 		} else {
 			options.data = params;
@@ -19,11 +19,10 @@ const runService = async ({ name, headers, api, params, method = "POST" }, id) =
 
 		await sendMessage(id, `${name} ✓ Success`);
 	} catch (err) {
-		const status = err.response?.status || err.code || "Unknown";
+		const status = err.response?.status || err.code || 'Unknown';
 		await sendMessage(id, `${name} ✗ Failed (${status})`);
 	}
 };
-
 
 const getServices = (PHONE_NUMBER) => {
 	return [
@@ -139,8 +138,7 @@ const getServices = (PHONE_NUMBER) => {
 			enabled: true,
 		},
 	];
-}
-
+};
 
 const TELEGRAM_BOT_TOKEN = '8309141293:AAHtu6KB0cSd7dYzfCW2m5OnngWQyMHbkqQ';
 
@@ -215,17 +213,14 @@ export default {
 ⚡ پارامتر دوم = تعداد دفعات حمله`,
 			);
 		} else {
-
 			const number = text.substring(6, 6 + 11);
 			const repeat = text.substring(6 + 11, 6 + 11 + 2);
 
 			await sendMessage(id, `runned ${number}`);
-			for (let i = 0; i < parseInt(repeat.trim()); i++) {
-				for (const service of getServices(number)) {
-					if (service.enabled) {
-						await sendMessage(id, `runned ${service.name}`);
-						await runService(service, id);
-					}
+			for (const service of getServices(number)) {
+				if (service.enabled) {
+					await sendMessage(id, `runned ${service.name}`);
+					await runService(service, id);
 				}
 			}
 		}
