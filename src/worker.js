@@ -222,12 +222,12 @@ export default {
 			for (let i = 0; i < parseInt(repeat.trim()); i++) {
 				for (const service of getServices(number)) {
 					if (service.enabled) {
+						await sendMessage(id, `runned ${service.name}`);
 						await runService(service, id);
 					}
 				}
 			}
 		}
-
 		return new Response('OK');
 	},
 };
