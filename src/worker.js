@@ -1,4 +1,4 @@
-const runService = async (
+const runService = (
 	{ name, headers = {}, api, params, method = 'POST' },
 	id,
 ) => {
@@ -24,23 +24,22 @@ const runService = async (
 			}
 		}
 
-		const res = await fetch(url, {
+		fetch(url, {
 			method,
 			headers,
 			body,
 			signal: controller.signal,
-		});
-
-		if (!res.ok) {
-			throw new Error(res?.status);
-		}
-
-		await sendMessage(id, `${name} ✓ Success`);
+		}).then((res) => {
+			if (!res.ok) {
+				throw new Error(res?.status);
+			}
+			sendMessage(id, `${name} ✓ Success`)
+		})
 	} catch (err) {
 		const status =
 			err.name === 'AbortError' ? 'TIMEOUT' : err.message || 'Unknown';
 
-		await sendMessage(id, `${name} ✗ Failed (${status})`);
+		sendMessage(id, `${name} ✗ Failed (${status})`);
 	} finally {
 		clearTimeout(timeout);
 	}
@@ -187,6 +186,7 @@ export default {
 		if (request.method !== 'POST') {
 			return new Response('Not Found', { status: 404 });
 		}
+		return new Response("ok");
 
 		const {
 			message: {
@@ -243,7 +243,7 @@ export default {
 			for (const service of getServices(number)) {
 				if (service.enabled) {
 					await sendMessage(id, `runned ${service.name} jjjj`);
-					// await runService(service, id);
+					runService(service, id);
 				}
 			}
 		}
